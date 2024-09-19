@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 50px;
+        }
+        .container {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            display: inline-block;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e0e0e0;
+        }
+        #sad-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form id="response-form" action="https://formspree.io/f/xnnakqlp" method="POST">
+        <div class="container" id="initial-container">
+            <h1>Welcome!</h1>
+            <p>Would you like to go on a date?</p>
+            <button type="button" onclick="handleResponse('yes')">Yes</button>
+            <button type="button" onclick="handleResponse('no')">No</button>
+        </div>
+
+        <div class="container" id="place-container" style="display: none;">
+            <h1>Awesome!</h1>
+            <p>Where would you like to go?</p>
+            <button type="button" onclick="choosePlace('motel')">A Motel</button>
+            <button type="button" onclick="choosePlace('restaurant')">A Restaurant</button>
+            <button type="button" onclick="choosePlace('streetfood')">Street Foods</button>
+        </div>
+
+        <div class="container" id="motel-container" style="display: none;">
+            <h1>Great choice!</h1>
+            <p>Which motel would you like to visit?</p>
+            <button type="button" onclick="chooseMotel('seven_seas')">Seven Seas</button>
+            <button type="button" onclick="chooseMotel('amity')">Amity</button>
+            <button type="button" onclick="chooseMotel('home')">Home</button>
+        </div>
+
+        <div class="container" id="restaurant-container" style="display: none;">
+            <h1>Yum!</h1>
+            <p>Which restaurant would you like to visit?</p>
+            <button type="button" onclick="chooseRestaurant('jollibee')">Jollibee</button>
+            <button type="button" onclick="chooseRestaurant('mang_inasal')">Mang Inasal</button>
+            <button type="button" onclick="chooseRestaurant('chooks_to_go')">Chooks To Go</button>
+            <button type="button" onclick="chooseRestaurant('kfc')">KFC</button>
+        </div>
+
+        <div class="container" id="sad-container">
+            <h1>I'm Sad</h1>
+            <img src="40823e316922640922ed6ae3f5e90c16.jpg" alt="Sad Image" style="max-width: 100%; height: auto;">
+        </div>
+
+        <input type="hidden" name="response" id="response-input">
+    </form>
+
+    <script>
+        function handleResponse(answer) {
+            document.getElementById('response-input').value = answer;
+            if (answer === 'yes') {
+                document.getElementById('initial-container').style.display = 'none';
+                document.getElementById('place-container').style.display = 'block';
+            } else {
+                document.getElementById('initial-container').style.display = 'none';
+                document.getElementById('sad-container').style.display = 'block';
+                document.getElementById('response-form').submit();
+            }
+        }
+
+        function choosePlace(place) {
+            document.getElementById('response-input').value = `Place: ${place}`;
+            document.getElementById('place-container').style.display = 'none';
+            if (place === 'motel') {
+                document.getElementById('motel-container').style.display = 'block';
+            } else if (place === 'restaurant') {
+                document.getElementById('restaurant-container').style.display = 'block';
+            } else {
+                alert("Yum! Let's go to street foods!");
+                document.getElementById('response-form').submit();
+            }
+        }
+
+        function chooseMotel(motel) {
+            let message = `Motel: ${motel}`;
+            document.getElementById('response-input').value = message;
+            alert(message);
+            document.getElementById('response-form').submit();
+        }
+
+        function chooseRestaurant(restaurant) {
+            let message = `Restaurant: ${restaurant}`;
+            document.getElementById('response-input').value = message;
+            alert(message);
+            document.getElementById('response-form').submit();
+        }
+    </script>
+</body>
+</html>
